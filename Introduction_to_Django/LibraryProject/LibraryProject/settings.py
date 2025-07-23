@@ -11,6 +11,12 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,9 +26,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-i3b07_^*9f%_5mg0o^iv_#$pseh*j&%0k=$%o-m&9^sfqp*!fh'
+SECRET_KEY = os.environ.get('django-insecure-i3b07_^*9f%_5mg0o^iv_#$pseh*j&%0k=$%o-m&9^sfqp*!fh')
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# hide these too
 DEBUG = True
 
 ALLOWED_HOSTS = []
@@ -37,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'bookshelf'
 ]
 
 MIDDLEWARE = [
@@ -74,8 +82,12 @@ WSGI_APPLICATION = 'LibraryProject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.environ.get('BE_Library'),
+        'USER': os.environ.get('DB_USER', 'root@localhost'),
+        'PASSWORD': os.environ.get('DB_PASSWORD', 'Guiltiasinjurai14@'),
+        'HOST': os.environ.get('DB_HOST', 'localhost'),
+        'PORT': os.environ.get('DB_PORT', '5432'),
     }
 }
 
