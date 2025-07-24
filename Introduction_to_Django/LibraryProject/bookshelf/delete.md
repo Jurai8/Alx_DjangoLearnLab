@@ -3,7 +3,7 @@
 
 ## Delete
 
->>> book_2.delete()
+>>> book.delete()
 (1, {'bookshelf.Book': 1})
 
 ### Expected Output

@@ -3,7 +3,7 @@
 
 ## Update
 
->>> book_2.title = "Nineteen Eighty-Four"
+>>> book.title = "Nineteen Eighty-Four"
 
 ### Expected Output
 
@@ -11,5 +11,5 @@
 
 ### Output (new title)
 
->>> book_2.title
+>>> book.title
 'Nineteen Eighty-Four'
