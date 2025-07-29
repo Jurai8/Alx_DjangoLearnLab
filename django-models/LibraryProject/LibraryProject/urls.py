@@ -20,6 +20,6 @@ from relationship_app.views import book_list, Library
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('all_books/', book_list, name='all_books')
+    path('all_books/', book_list, name='all_books'),
     path('libraries/books/', LibraryBookListView.as_view(), name='library_books')
 ]
