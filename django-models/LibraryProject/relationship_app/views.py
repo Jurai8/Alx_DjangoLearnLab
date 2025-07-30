@@ -11,11 +11,11 @@ def book_list(request):
     books = Book.objects.all()
     context = {'book_list': books }
 
-    return render(request, 'books/book_list.html', context)
+    return render(request, 'relationship_app/book_list.html', context)
 
 
 class LibraryBookListView(ListView):
-    template_name = 'books/book_list.html'
+    template_name = 'relationship_app/book_list.html'
     model = Book
     context_object_name = 'books'
 
