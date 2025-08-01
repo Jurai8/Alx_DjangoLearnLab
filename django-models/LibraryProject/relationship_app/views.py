@@ -1,10 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from models import Book, Library
 from .models import Library
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.contrib.auth.forms import UserCreationForm, UserL
+from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from django.contrib.auth import login
@@ -39,11 +39,28 @@ class LibraryDetailView(ListView):
             return Book.objects.none() 
 
 
-class SignuUpView(CreateView):
+class SignUpView(CreateView):
     form_class = UserCreationForm
     success_url = reverse_lazy('login')
     template_name = 'relationship_app/signup.html'
 
 
-class LoginView(CreateView):
-    form_class = User
+def register(request):
+    """
+    A function-based view to handle user registration.
+    """
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            # Optional: Log the user in immediately after registration
+            # login(request, user)
+            return redirect(reverse_lazy('login')) # Redirect to the login page
+    else:
+        form = UserCreationForm()
+
+    context = {'form': form, 'template_name': 'relationship_app/signup.html'}
+    return render(request, 'relationship_app/signup.html', context)
+
+
+
