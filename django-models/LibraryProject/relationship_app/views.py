@@ -59,8 +59,8 @@ def register(request):
     else:
         form = UserCreationForm()
 
-    context = {'form': form, 'template_name': 'relationship_app/signup.html'}
-    return render(request, 'relationship_app/signup.html', context)
+    context = {'form': form, 'template_name': 'relationship_app/register.html'}
+    return render(request, 'relationship_app/register.html', context)
 
 
 
