@@ -16,13 +16,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import list_books, LibraryDetailView
+from .views import list_books, LibraryDetailView, admin_view, librarian_view, member_view
 from django.contrib.auth.views import LoginView, LogoutView
 
 import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    # path('admin/', admin.site.urls),
+    path('admin/', admin_view, name='admin_view'),
+    path('librarian/', librarian_view, name='librarian_view'),
+    path('member/', member_view, name='librarian_view'),
+
     path('all_books/', list_books, name='all_books'),
     path('libraries/books/', LibraryDetailView.as_view(), name='library_books'),
 
