@@ -1,6 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from models import Book, Library, User
+from models import Book, Library, User, Author
 from .models import Library
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
@@ -11,12 +11,13 @@ from django.contrib.auth import login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import user_passes_test
 from decorators import is_admin, is_librarian, is_member
+from django.contrib.auth.decorators import permission_required
+
 
 
 
 
 # Create your views here.
-
 
 @user_passes_test(is_admin, login_url='/login/')
 def admin_view(request):
@@ -31,6 +32,40 @@ def librarian_view(request):
 def member_view(request):
     return render(request, 'relationship_app/member_view.html')
 
+@permission_required('relationship_app.can_add_book', raise_exception=True)
+def add_book(request):
+
+    if request.method == 'POST':
+
+        # get the book information from the user
+        book_title = request.POST.get('title')
+        author_id = request.POST.get('author')
+
+        # get the author
+        author_instance = get_object_or_404(Author, pk=author_id)
+
+        # create a new book model
+        new_book = Book(title=book_title, author=author_instance)
+        new_book.save()
+
+        return redirect('example.com')
+    
+    authors = Author.objects.all()
+    context = {
+        'authors': authors
+    }
+    return render(request, 'relationship_app/add_book_without_form.html', context)
+
+
+
+@permission_required('relationship_app.can_change_book', raise_exception=True)
+def change_book(request):
+    pass
+
+@permission_required('relationship_app.can_delete_book', raise_exception=True)
+def delete_book(request):
+    pass
+ 
 
 
 
@@ -57,6 +92,7 @@ class LibraryDetailView(ListView):
         except Library.DoesNotExist:
             
             return Book.objects.none() 
+
 
 
 class SignUpView(CreateView):
