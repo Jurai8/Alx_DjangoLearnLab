@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import list_books, LibraryDetailView, admin_view, librarian_view, member_view
+from .views import list_books, LibraryDetailView, admin_view, librarian_view, member_view, add_book, change_book, delete_book
 from django.contrib.auth.views import LoginView, LogoutView
 
 import views
@@ -29,6 +29,9 @@ urlpatterns = [
 
     path('all_books/', list_books, name='all_books'),
     path('libraries/books/', LibraryDetailView.as_view(), name='library_books'),
+    path('add-book/', add_book, name='add_book'),
+    path('change-book', change_book, name='change-book'),
+    path('delete_book', delete_book, name='delete_book'),
 
     path('register/', views.register, name='register'),
     path('login/', LoginView.as_view(template_name='relationship_app/login.html'), name='login'),
