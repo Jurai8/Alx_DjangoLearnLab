@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser, User
+from django.contrib.auth.models import AbstractUser, User, BaseUserManager
 
 
 # Create your models here.
@@ -10,7 +10,7 @@ class Book(models.Model):
     publication_year = models.IntegerField() 
 
 
-class CustomUserManager(models.Manager):
+class CustomUserManager(BaseUserManager):
     # this query set will now be used in the following functions defined here
     def get_queryset(self):
         return super().get_queryset()
