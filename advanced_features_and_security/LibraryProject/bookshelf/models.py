@@ -9,6 +9,8 @@ class Book(models.Model):
     author = models.CharField(max_length=100)
     publication_year = models.IntegerField() 
 
+    
+
 
 class CustomUserManager(BaseUserManager):
     # this query set will now be used in the following functions defined here
@@ -24,6 +26,13 @@ class CustomUserManager(BaseUserManager):
 class CustomUser(AbstractUser):
     date_of_birth = models.DateField(null=True, blank=True)
     profile_photo = models.ImageField(upload_to='image/', null=True, blank=True)
+
+    permission = [
+        ('can_view', 'can view a user profile'),
+        ('can_create', 'can create a user'),
+        ('can_edit', 'can edit user info'),
+        ('can_delete', 'can delete a user')
+    ]
 
     def __str__(self):
         return self.username
