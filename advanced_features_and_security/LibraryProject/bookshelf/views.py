@@ -24,7 +24,10 @@ def delete_user(request):
 
 @permission_required('bookshelf.can_view', raise_exception=True)
 def book_list(request):
-    books = Book.objects.all()
-    context = {'book_list': books }
+
+    book_list = Book.objects.all()
+
+    context = {'book_list':  book_list }
 
     return render(request, 'relationship_app/list_books.html', context)
+    
