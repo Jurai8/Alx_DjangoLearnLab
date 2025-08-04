@@ -11,4 +11,4 @@ class ExampleForm(UserCreationForm):
     """
     class Meta:
         model = CustomUser
-        fields = ('username', 'email')
+        fields = ('username', 'email', 'date_of_birth')
