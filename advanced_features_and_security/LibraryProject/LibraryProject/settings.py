@@ -55,7 +55,9 @@ X_FRAME_OPTIONS = 'DENY'
 
 SECURE_CONTENT_TYPE_NOSNIFF = True
 
-SRF_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+SESSION_COOKIE_SECURE = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
