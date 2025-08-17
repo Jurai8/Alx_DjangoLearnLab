@@ -13,12 +13,24 @@ class BookSerializer(serializers.ModelSerializer):
         Validates the publication year. Ensures the publication year of a book
         is not set in the future
     """
-    def validate_publication_year(self, year):
-        if year > datetime.today().year:
+    def validate_publication_year(self, value):
+        if value > datetime.today().year:
             raise serializers.ValidationError(
                 "Publication year cannot be in the future."
             )
-        return year
+        return value
+    
+    def validate(self, data):
+        """
+        Validates the title and author.
+        """
+        if not data.get('title'):
+            raise serializers.ValidationError({"title": "title must contain at least one character"})
+        
+        if not data.get('author'):
+            raise serializers.ValidationError({"author": "author must contain at least one character"})
+        
+        return data
 
 
 class AuthorSerializer(serializers.ModelSerializer):
