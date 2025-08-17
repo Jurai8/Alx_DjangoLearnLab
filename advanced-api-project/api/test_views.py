@@ -4,7 +4,15 @@ from django.urls import reverse
 from rest_framework import status
 
 class BookTest(APITestCase):
+    def setUp(self):
+        """
+        Set up a user and log them in before each test method runs.
+        """
+        # Log the client in with the created user
+        self.client.login(username='testuser', password='password123')
+ 
     def test_create_book(self):
+        
         """
         Ensure a book can be created
         """
