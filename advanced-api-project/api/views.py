@@ -47,7 +47,6 @@ class CreateView(generics.CreateAPIView):
     permission_classes = [IsAuthenticated]
 
 
-
 class UpdateView(generics.UpdateAPIView):
     """
     modifies an existing book
@@ -65,5 +64,3 @@ class DeleteView(generics.DestroyAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [IsAuthenticated]
-
-    
