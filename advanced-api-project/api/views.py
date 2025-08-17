@@ -3,6 +3,10 @@ from models import Book
 from serializers import BookSerializer
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
+from rest_framework import filters
+from django_filters.rest_framework import DjangoFilterBackend
+
+
 
 
 # Create your views here.
@@ -14,7 +18,11 @@ class ListView(generics.ListAPIView):
     """
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = IsAuthenticatedOrReadOnly
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    filterset_fields = ['title', 'author', 'publication_year']
+    search_fields = ['title', 'author']
+    ordering_fields = ['title']
 
 
 class DetailView(generics.RetrieveAPIView):
@@ -25,7 +33,7 @@ class DetailView(generics.RetrieveAPIView):
     """
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = IsAuthenticatedOrReadOnly
+    permission_classes = [IsAuthenticatedOrReadOnly]
     
 
 class CreateView(generics.CreateAPIView):
@@ -35,7 +43,7 @@ class CreateView(generics.CreateAPIView):
     """
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = IsAuthenticated
+    permission_classes = [IsAuthenticated]
 
 
 
@@ -46,7 +54,7 @@ class UpdateView(generics.UpdateAPIView):
     """
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = IsAuthenticated
+    permission_classes = [IsAuthenticated]
 
 class DeleteView(generics.DestroyAPIView):
     """
@@ -55,6 +63,6 @@ class DeleteView(generics.DestroyAPIView):
     """
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = IsAuthenticated
+    permission_classes = [IsAuthenticated]
 
     
