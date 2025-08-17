@@ -22,11 +22,9 @@ class BookTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Book.objects.count(), 1)
 
-        book = Book.objects.get()
-
-        self.assertEqual(book.title, 'Dune')
-        self.assertEqual(book.author, 'Frank Herbert')
-        self.assertEqual(book.publication_year, '1965')
+        self.assertEqual(response.data['title'], 'Dune')
+        self.assertEqual(response.data['author'], 'Frank Herbert')
+        self.assertEqual(response.data['publication_year'], '1965')
 
     def test_update_book(self):
         """
@@ -51,8 +49,8 @@ class BookTest(APITestCase):
 
         updated_book = Book.objects.get(pk=book.pk)
 
-        self.assertEqual(updated_book.title, 'Children of Dune')
-        self.assertEqual(updated_book.publication_year, 1975)
+        self.assertEqual(response.data['title'], 'Children of Dune')
+        self.assertEqual(response.data['publication_year'], 1975)
 
     def test_delete_book(self):
         """
