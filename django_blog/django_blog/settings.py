@@ -58,6 +58,11 @@ ROOT_URLCONF = 'django_blog.urls'
 
 STATIC_URL = [BASE_DIR/'static']
 
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
