@@ -8,6 +8,8 @@ from django.urls import reverse_lazy
 from django.contrib.auth.models import User
 from .models import Profile
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
+
 
 
 
@@ -25,24 +27,40 @@ class RegistrationView(CreateView):
     form_class = RegistrationForm
     success_url = reverse_lazy('success_page')
 
-class ProfileView(LoginRequiredMixin, UpdateView):
-    model = Profile
-    form_class = ProfileForm
-    template_name = 'profile.html'
-    success_url = reverse_lazy('profile_success_page')
-    
-    # We need to override get_object to get the profile of the current user
-    def get_object(self, queryset=None):
-        return self.request.user.profile
-    
-    # Override form_valid to handle the user's email update
-    def form_valid(self, form):
-        # Update the User's email manually
-        self.request.user.email = form.cleaned_data['email']
-        self.request.user.save()
-        
-        # Call the parent form_valid to save the Profile model
-        return super().form_valid(form)
+@login_required
+def profile_view(request):
+    """
+    A view that allows an authenticated user to view and edit their profile details.
+    This view handles both GET and POST requests.
+    """
+    # Get the user's profile object
+    profile = request.user.profile
+
+    # This is where we explicitly check the request method
+    # It will be 'POST' if the form was submitted
+    if request.method == 'POST':
+        # If it's a POST request, we pass the data from the form
+        form = ProfileForm(request.POST, instance=profile)
+
+        # Check if the form is valid
+        if form.is_valid():
+            # Save the updated profile data
+            form.save()
+            
+            # Manually update the user's email from the form data
+            request.user.email = form.cleaned_data['email']
+            request.user.save()
+
+            # Redirect to a success page
+            return redirect(reverse('profile_success_page'))
+    else:
+        # If it's a GET request, we create a form pre-populated with the
+        # user's existing profile data.
+        form = ProfileForm(instance=profile)
+
+    # Render the template with the form
+    return render(request, 'profile.html', {'form': form})
+
 
     
 class ListView(ListView):
