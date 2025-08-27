@@ -64,7 +64,7 @@ def profile_view(request):
     
 class PostListView(ListView):
     model = Post
-    template_name = 'all-posts.html'
+    template_name = 'listing.html'
     context_object_name = 'posts'
 class PostDetailView(DetailView):
     model = Post

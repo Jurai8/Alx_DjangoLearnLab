@@ -7,7 +7,7 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(template_name='logout.html'), name='logout'),
     path('profile/', profile_view, name='profile'),
 
-    path('posts/', PostListView.as_view(template_name='all-posts.html'), name='posts'),
+    path('posts/', PostListView.as_view(template_name='listing.html'), name='posts'),
     path('post/new/', PostCreateView.as_view(template_name='create_posts.html'), name='create_post'),
     path('post/<int:pk>/', PostDetailView.as_view(template_name='post_detail.html'), name='post-details'),
     path('post/<int:pk>/update/', PostUpdateView.as_view(template_name='edit_post.html'), name='edit-post'),
