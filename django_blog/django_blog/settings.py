@@ -56,22 +56,18 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'django_blog.urls'
 
-STATIC_URL = [BASE_DIR/'static']
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR/'templates'],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
+        'DIRS': [BASE_DIR / 'templates'],
     },
 ]
+
 
 WSGI_APPLICATION = 'django_blog.wsgi.application'
 
