@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
 from .models import CustomUser
-from .serialzers import RegistrationSerialzer, LoginSerializer
+from .serializers import RegistrationSerialzer, LoginSerializer
 from rest_framework.response import Response
 
 
