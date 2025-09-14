@@ -27,6 +27,8 @@ class RegistrationSerialzer(serializers.ModelSerializer):
             last_name=validated_data['last_name'],
             password=validated_data['password']
         )
+
+        Token.objects.create(user=user)
         return user
         
 
